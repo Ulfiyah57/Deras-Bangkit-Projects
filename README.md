@@ -9,7 +9,7 @@ Dermatitis Assistant we are here to help you recognize skin allergies from an ea
 **This is a project to fulfill [the Bangkit Academy led by Google, Tokopedia, Gojek, & Traveloka](https://grow.google/intl/id_id/bangkit/?tab=machine-learning) » Program.**
 
 </div>
-============================================================================================
+========================================================================================
 
 <div align="center">
 
