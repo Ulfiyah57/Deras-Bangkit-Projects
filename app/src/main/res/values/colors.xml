@@ -4,4 +4,14 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00FFFFFF </color>
     <color name="green">#006769</color>
+    <color name="light_gray_100">#EDEDED</color>
+    <color name="light_gray_200">#E1E1E1</color>
+    <color name="light_gray_500">#BABABA</color>
+    <color name="gray">#676767</color>
+    <color name="deras_secondary_200">#65f7fb</color>
+    <color name="deras_secondary_500">#12c4c8</color>
+    <color name="deras_secondary_700">#009397</color>
+    <color name="deras_primary_200">#58687c</color>
+    <color name="deras_primary_500">#2d3e50</color>
+    <color name="deras_primary_700">#041828</color>
 </resources>
