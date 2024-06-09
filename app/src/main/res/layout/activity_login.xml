@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:background="#F1F4FF"
             android:ems="10"
-            android:fontFamily="@font/poppinssemibold"
+            android:fontFamily="@font/poppinsbold"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:paddingStart="48dp"
@@ -84,7 +84,7 @@
             android:paddingStart="48dp"
             android:paddingTop="17dp"
             android:paddingBottom="17dp"
-            android:fontFamily="@font/poppinssemibold"
+            android:fontFamily="@font/poppinsbold"
             android:hint="@string/password"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -147,6 +147,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cyber_shield_protecting" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinsbold"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/loginDescription"
+        tools:layout_editor_absoluteY="287dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

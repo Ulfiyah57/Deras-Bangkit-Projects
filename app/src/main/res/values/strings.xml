@@ -12,7 +12,11 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
 
-    <string name="login_to_signup">Don\'t have an account yet? %1$s and start sharing your stories with us!</string>
+    <string name="login_to_signup">Don\'t have an account yet? %1$s </string>
     <string name="signup_now">Sign up now</string>
     <string name="signup_to_login">Don\'t have any account? %1$s</string>
+
+    <string name="sign_up">SIGN UP</string>
+    <string name="signup_title">Join %1$s</string>
+    <string name="signup_description">Create an account</string>
 </resources>
