@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Deras</string>
+    <string name="invalid_email_format">invalid email format</string>
+    <string name="passwords_must_have_at_least_8_characters">Passwords must have at least 8 characters.</string>
+    <string name="title_menu1">menu1</string>
+    <string name="title_menu2">menu2</string>
+    <string name="title_menu3">menu3</string>
+    <string name="login_now">Login now</string>
+    <string name="login">Login</string>
+
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+
+    <string name="login_to_signup">Don\'t have an account yet? %1$s and start sharing your stories with us!</string>
+    <string name="signup_now">Sign up now</string>
+    <string name="signup_to_login">Don\'t have any account? %1$s</string>
+</resources>
