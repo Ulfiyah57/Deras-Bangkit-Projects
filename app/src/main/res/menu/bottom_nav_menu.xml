@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/navigation_explore"
+        android:id="@+id/navigation_article"
         android:icon="@drawable/ic_baseline_article_24"
         android:title="@string/menu_title_bottom_nav_article"
         app:showAsAction="ifRoom" />
@@ -21,7 +21,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/navigation_downloaded"
+        android:id="@+id/navigation_history"
         android:icon="@drawable/ic_baseline_history_24"
         android:title="@string/menu_title_bottom_nav_hystory"
         app:showAsAction="ifRoom" />
