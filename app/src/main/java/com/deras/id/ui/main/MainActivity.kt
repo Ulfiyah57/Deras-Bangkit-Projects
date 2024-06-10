@@ -114,11 +114,6 @@ class MainActivity : AppCompatActivity() {
                     Helper.notifyGivePermission(this, "Berikan aplikasi izin mengakses kamera")
                 }
             }
-            Constanta.LOCATION_PERMISSION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                    Helper.notifyGivePermission(this, "Berikan aplikasi izin lokasi untuk membaca lokasi")
-                }
-            }
             Constanta.STORAGE_PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_DENIED) {
                     Helper.notifyGivePermission(this, "Berikan aplikasi izin storage untuk membaca dan menyimpan story")
