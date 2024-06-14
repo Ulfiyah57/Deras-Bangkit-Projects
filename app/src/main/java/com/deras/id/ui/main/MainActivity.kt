@@ -8,12 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.deras.id.R
 import com.deras.id.databinding.ActivityMainBinding
-import com.deras.id.ui.HistoryActivity
+import com.deras.id.ui.history.HistoryActivity
 import com.deras.id.ui.article.ArticleActivity
 import com.deras.id.ui.camera.CameraActivity
 import com.deras.id.ui.profile.ProfileActivity
-import com.deras.id.ui.utils.Constanta
-import com.deras.id.ui.utils.Helper
+import com.deras.id.utils.Constanta
+import com.deras.id.utils.Helper
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {

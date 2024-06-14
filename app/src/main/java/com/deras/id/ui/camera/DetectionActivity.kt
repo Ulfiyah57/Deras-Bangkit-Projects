@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.deras.id.databinding.ActivityDetectionBinding
-import com.deras.id.ui.utils.Helper
+import com.deras.id.utils.Helper
 import java.io.File
 
 @Suppress("DEPRECATION")

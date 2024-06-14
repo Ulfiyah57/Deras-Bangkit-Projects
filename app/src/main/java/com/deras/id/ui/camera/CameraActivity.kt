@@ -16,7 +16,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.deras.id.R
 import com.deras.id.databinding.ActivityCameraBinding
-import com.deras.id.ui.utils.Helper
+import com.deras.id.utils.Helper
 import java.lang.StringBuilder
 
 @Suppress("DEPRECATION")

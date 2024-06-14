@@ -1,4 +1,4 @@
-package com.deras.id.ui.utils
+package com.deras.id.utils
 
 
 object Constanta {

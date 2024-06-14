@@ -26,7 +26,7 @@
             android:name=".ui.profile.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.HistoryActivity"
+            android:name=".ui.history.HistoryActivity"
             android:exported="false" />
         <activity
             android:name=".ui.article.ArticleActivity"

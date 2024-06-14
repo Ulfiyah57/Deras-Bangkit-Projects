@@ -41,4 +41,9 @@
     <string name="result">Result analyze</string>
     <string name="Result">Hasil : </string>
     <string name="button_text_analiyze">Analyze</string>
+    <string name="image_classifier_failed">Images classifier failed</string>
+    <string name="image_processing_failed">Images processing failed</string>
+    <string name="articles">images article</string>
+    <string name="titles">Dermatitis atopik</string>
+    <string name="description"><![CDATA[Dermatitis Atopik  adalah  suatu kondisi kulit yang bersifat kronis dan seringkali bersifat reaktif terhadap alergen atau iritan tertentu.]]></string>
 </resources>

@@ -15,4 +15,5 @@
     <color name="deras_primary_200">#58687c</color>
     <color name="deras_primary_500">#2d3e50</color>
     <color name="deras_primary_700">#041828</color>
+    <color name="shimmerColor">#C2C2C2</color>
 </resources>
