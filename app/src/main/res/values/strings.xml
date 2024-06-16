@@ -5,18 +5,35 @@
     <string name="title_menu1">menu1</string>
     <string name="title_menu2">menu2</string>
     <string name="title_menu3">menu3</string>
-    <string name="login_now">Login now</string>
-    <string name="login">Login</string>
-
-    <string name="name">Name</string>
-    <string name="password">Password</string>
     <string name="email">Email</string>
-
-    <string name="login_to_signup">Don\'t have an account yet? %1$s </string>
-    <string name="signup_now">Sign up now</string>
-    <string name="signup_to_login">Don\'t have any account? %1$s</string>
-
-    <string name="sign_up">SIGN UP</string>
-    <string name="signup_title">Join %1$s</string>
-    <string name="signup_description">Create an account</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="name">Name</string>
+    <string name="signup_to_login">Don\'t have an account? Sign Up</string>
+    <string name="login_to_signup">Already have an account? Login</string>
+    <string name="image_view">imageview</string>
+    <string name="menu_title_bottom_nav_article">Article</string>
+    <string name="menu_title_bottom_nav_detection">Detection</string>
+    <string name="menu_title_bottom_nav_hystory">Hystory</string>
+    <string name="menu_title_bottom_nav_profile">Profile</string>
+    <string name="menu_title_bottom_nav_home">Home</string>
+    <string name="content_description_btn_camera_back">Camera back</string>
+    <string name="content_descrption_btn_gallery">Button galery</string>
+    <string name="content_description_btn_shutter_camera">Button shutter camera</string>
+    <string name="content_description_btn_switch_camera">Button switch camera</string>
+    <string name="const_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="button_text_ok">OK</string>
+    <string name="const_text_preview_image">Priview images</string>
+    <string name="content_description_btn_close_dialog">Btn close dialog</string>
+    <string name="content_description_image_detection">Description images detection</string>
+    <string name="const_text_storage_location">Storage location</string>
+    <string name="UI_error_camera_error">Failed to launch camera</string>
+    <string name="UI_info_intent_image">Choose a picture</string>
+    <string name="UI_error_camera_take_photo">Failed take a picture</string>
+    <string name="analyze">Images analyze</string>
+    <string name="result">Result analyze</string>
+    <string name="Result">Hasil : </string>
+    <string name="button_text_analiyze">Analyze</string>
+    <string name="default_web_client_id">87946930847-iuvjls5ujuk30tuj915mc2bsvamt02af.apps.googleusercontent.com</string>
 </resources>
