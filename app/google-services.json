@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "87946930847",
+    "project_id": "deras-a2569",
+    "storage_bucket": "deras-a2569.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87946930847:android:903dc1c9e8f81ac65010aa",
+        "android_client_info": {
+          "package_name": "com.deras.id"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "87946930847-cjp8fnl6ld9kr1l2j05t4l6dolrkp54n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.deras.id",
+            "certificate_hash": "185ca220eecdd45e90e2a28c58b1da9a10134018"
+          }
+        },
+        {
+          "client_id": "87946930847-iuvjls5ujuk30tuj915mc2bsvamt02af.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLIiEADhIjjGehDf1M5m_1iUmyQ1_3-DY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "87946930847-iuvjls5ujuk30tuj915mc2bsvamt02af.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
