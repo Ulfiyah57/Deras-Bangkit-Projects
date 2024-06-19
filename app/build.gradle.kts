@@ -1,7 +1,10 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+    id("kotlin-kapt")
 }
 
 android {
@@ -16,6 +19,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        val properties = Properties()
+        properties.load(rootProject.file("local.properties").inputStream())
+
+        val apiUrl = properties.getProperty("API_URL")?:"https://newsapi.org/v2/"
+        val apiKey = properties.getProperty("API_KEY")?:"fc525f59a17c4fc6b170b732620626e0"
+
+        buildConfigField("String", "API_URL", "\"$apiUrl\"")
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -38,6 +49,7 @@ android {
         buildConfig = true
         viewBinding = true
         dataBinding = true
+        mlModelBinding = true
     }
 }
 
@@ -57,10 +69,25 @@ dependencies {
     implementation(libs.camera.lifecycle)
     implementation(libs.camera.view)
 
+    //Tensorflowlite
+    implementation(libs.tensorflow.lite.support)
+    implementation(libs.tensorflow.tensorflow.lite.task.vision)
+    implementation(libs.tensorflow.lite.gpu)
+
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
-
-
-
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.datastore.preferences)
+    //noinspection KaptUsageInsteadOfKsp
+    kapt(libs.room.compiler)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.activity.ktx)
+    implementation(libs.circleimageview)
+    implementation(libs.glide)
+    implementation(libs.shimmer)
 
 }

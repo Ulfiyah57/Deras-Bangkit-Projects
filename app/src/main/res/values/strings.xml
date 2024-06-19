@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">Deras</string>
+    <string name="description_app">Dermatitis Assistent</string>
     <string name="invalid_email_format">invalid email format</string>
     <string name="passwords_must_have_at_least_8_characters">Passwords must have at least 8 characters.</string>
-    <string name="title_menu1">menu1</string>
-    <string name="title_menu2">menu2</string>
-    <string name="title_menu3">menu3</string>
+    <string name="start_now">Start now</string>
+    <string name="image_welcome">image_Welcome</string>
+    <string name="title_menu1">Welcome to Dermas</string>
+    <string name="description_menu1">Dermas is skin allergy detection application</string>
+    <string name="description_menu2">helps you recognize skin allergies early and will provide knowledge for early treatment</string>
+    <string name="description_menu3">to prevent it from happening again, but remember, we are not doctors, so if you say it is dangerous, you should take it to the nearest medical institution and require special treatment.</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -35,5 +39,19 @@
     <string name="result">Result analyze</string>
     <string name="Result">Hasil : </string>
     <string name="button_text_analiyze">Analyze</string>
+    <string name="image_classifier_failed">Images classifier failed</string>
+    <string name="image_processing_failed">Images processing failed</string>
+    <string name="articles">images article</string>
+    <string name="titles">Dermatitis atopik</string>
+    <string name="description"><![CDATA[Dermatitis Atopik  adalah  suatu kondisi kulit yang bersifat kronis dan seringkali bersifat reaktif terhadap alergen atau iritan tertentu.]]></string>
+    <string name="history">History</string>
+    <string name="Delet_History">Delet history</string>
+    <string name="label">Skin Allergy</string>
+    <string name="Created_At">Created At</string>
+    <string name="Suggestion">Sugestion</string>
+    <string name="Explanation">Explanation</string>
     <string name="default_web_client_id">87946930847-iuvjls5ujuk30tuj915mc2bsvamt02af.apps.googleusercontent.com</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile_image">image</string>
 </resources>

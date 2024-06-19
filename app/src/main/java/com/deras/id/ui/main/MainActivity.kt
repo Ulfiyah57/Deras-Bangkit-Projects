@@ -2,41 +2,59 @@ package com.deras.id.ui.main
 
 import android.Manifest
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import com.deras.id.R
 import com.deras.id.databinding.ActivityMainBinding
-import com.deras.id.ui.HistoryActivity
-import com.deras.id.ui.article.ArticleActivity
+import com.deras.id.ui.article.ArticelFragment
 import com.deras.id.ui.camera.CameraActivity
-import com.deras.id.ui.profile.ProfileActivity
-import com.deras.id.ui.utils.Constanta
-import com.deras.id.ui.utils.Helper
+import com.deras.id.ui.history.HistoryActivity
+import com.deras.id.ui.home.HomeFragment
+import com.deras.id.ui.login.LoginActivity
+import com.deras.id.ui.profile.ProfileFragment
+import com.deras.id.utils.Constanta
+import com.deras.id.utils.Helper
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var sharedPreferences: SharedPreferences
+
+    companion object {
+        private const val PREF_NAME = "login_pref"
+        private const val KEY_IS_LOGGED_IN = "is_logged_in"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        enableEdgeToEdge()
 
         // Hide abnormal layer in bottom navigation
         binding.bottomNavigationView.background = null
+
+        // Set initial fragment
+        switchFragment(HomeFragment())
 
         // Set bottom navigation item selection listener
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    // Do nothing, already on home
+                    switchFragment(HomeFragment())
                     true
                 }
                 R.id.navigation_article -> {
-                    checkArticlePermission()
+                    switchFragment(ArticelFragment())
+                    true
                 }
                 R.id.navigation_detection -> {
                     checkCameraPermission()
@@ -45,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                     checkStoragePermission()
                 }
                 R.id.navigation_profile -> {
-                    navigateToProfile()
+                    switchFragment(ProfileFragment())
                     true
                 }
                 else -> false
@@ -53,21 +71,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkArticlePermission(): Boolean {
-        return if (Helper.isPermissionGranted(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            startActivity(Intent(this, ArticleActivity::class.java))
-            true
-        } else {
-            ActivityCompat.requestPermissions(
-                this@MainActivity,
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ),
-                Constanta.LOCATION_PERMISSION_CODE
-            )
-            false
+    override fun onResume() {
+        super.onResume()
+        // Check if the user is already logged in
+        val isLoggedIn = sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)
+        if (!isLoggedIn) {
+            navigateToLogin()
         }
+    }
+
+    private fun switchFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .commit()
     }
 
     private fun checkCameraPermission(): Boolean {
@@ -98,14 +114,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToProfile() {
-        startActivity(Intent(this, ProfileActivity::class.java))
-    }
-
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
@@ -131,5 +141,12 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         finishAffinity()
+    }
+
+    private fun navigateToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish()
     }
 }

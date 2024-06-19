@@ -1,21 +1,47 @@
 package com.deras.id.ui.main
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.deras.id.R
+import com.deras.id.ui.login.LoginActivity
 
 class WelcomeActivity : AppCompatActivity() {
+
+    private lateinit var sharedPreferences: SharedPreferences
+
+    companion object {
+        private const val PREF_NAME = "login_pref"
+        private const val KEY_IS_LOGGED_IN = "is_logged_in"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_welcome)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        supportActionBar?.hide()
+        enableEdgeToEdge()
+
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+
+        // Check if the user is already logged in
+        val isLoggedIn = sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)
+        if (isLoggedIn) {
+            navigateToMainActivity()
         }
+
+        val btnStart = findViewById<Button>(R.id.btn_start)
+        btnStart.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+    }
+
+    private fun navigateToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

@@ -1,6 +1,7 @@
 package com.deras.id.ui.login
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -22,9 +23,12 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var sharedPreferences: SharedPreferences
 
     companion object {
         private const val RC_SIGN_IN = 9001
+        private const val PREF_NAME = "login_pref"
+        private const val KEY_IS_LOGGED_IN = "is_logged_in"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE)
 
         // Configure Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -77,10 +82,9 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Login success
                     Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                    // Navigate to main activity or home screen
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    // Save login status in SharedPreferences
+                    sharedPreferences.edit().putBoolean(KEY_IS_LOGGED_IN, true).apply()
+                    navigateToMainActivity()
                 } else {
                     // If login fails, display a message to the user.
                     Toast.makeText(this, "Authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
@@ -119,6 +123,8 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success
                     Toast.makeText(this, "Google sign-in successful", Toast.LENGTH_SHORT).show()
+                    // Save login status in SharedPreferences
+                    sharedPreferences.edit().putBoolean(KEY_IS_LOGGED_IN, true).apply()
                     navigateToMainActivity()
                 } else {
                     // If sign in fails, display a message to the user.

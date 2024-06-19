@@ -2,11 +2,17 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Deras" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimary">@color/white</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorSecondaryVariant">@color/white</item>
         <item name="colorOnSecondary">@color/green</item>
     </style>
 
     <style name="Theme.Deras" parent="Base.Theme.Deras" />
+    <style name="toolbar">
+        <item name="font">@font/poppinsbold</item>
+        <item name="android:background">@color/green</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
 </resources>
