@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/result_image"
@@ -21,9 +22,10 @@
             android:contentDescription="@string/analyze" />
 
         <LinearLayout
-            android:layout_width="371dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
@@ -33,38 +35,61 @@
                 android:src="@drawable/ic_result" />
 
             <TextView
-                android:id="@+id/result_text"
+                android:id="@+id/tvResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
                 android:text="@string/result"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvCreatedAt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:text="@string/Created_At"/>
+
+        <TextView
+            android:id="@+id/tvSuggestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:text="@string/Suggestion"/>
+
+        <TextView
+            android:id="@+id/tvExplanation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:text="@string/Explanation"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/menu_title_bottom_nav_article"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
             />
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
                 android:orientation="vertical">
 
                 <include layout="@layout/card_news" />
-
                 <include layout="@layout/card_news" />
-
                 <include layout="@layout/card_news" />
             </LinearLayout>
         </com.facebook.shimmer.ShimmerFrameLayout>
@@ -72,10 +97,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvNews"
             android:visibility="gone"
-            android:layout_marginTop="4dp"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </ScrollView>

@@ -8,4 +8,11 @@
     </style>
 
     <style name="Theme.Deras" parent="Base.Theme.Deras" />
+
+    <style name="toolbar">
+        <item name="font">@font/poppinsbold</item>
+        <item name="android:background">@color/green</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
 </resources>

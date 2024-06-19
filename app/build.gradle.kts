@@ -33,6 +33,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         buildConfig = true
         viewBinding = true
@@ -62,10 +63,25 @@ dependencies {
     implementation(libs.tensorflow.lite.support)
     implementation(libs.tensorflow.tensorflow.lite.metadata)
     implementation(libs.tensorflow.tensorflow.lite.task.vision)
+    implementation(libs.tensorflow.lite.gpu)
 
     implementation(libs.circleimageview)
     implementation(libs.glide)
     implementation(libs.shimmer)
+
+    implementation (libs.gson)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.room.ktx)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation (libs.retrofit)
+    implementation (libs.retrofit2.converter.gson)
+    implementation (libs.logging.interceptor)
+    implementation (libs.androidx.lifecycle.extensions)
+    implementation (libs.lifecycle.livedata.ktx)
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
+
 
 
 
