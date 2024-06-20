@@ -1,6 +1,9 @@
 package com.deras.id.database.remote
 
 import com.deras.id.response.ResponseDetection
+import okhttp3.MultipartBody
+import retrofit2.Response
+import retrofit2.http.*
 
 interface ApiService {
     @Multipart

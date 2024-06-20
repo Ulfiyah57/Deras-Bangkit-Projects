@@ -20,19 +20,12 @@
         android:theme="@style/Theme.Deras"
         tools:targetApi="31">
         <activity
-            android:name=".ui.profile.ProfileActivity"
+            android:name=".ui.history.HistoryActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.HistoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.article.ArticleActivity"
-            android:exported="false" />
+        <activity android:name=".ui.camera.CameraActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.camera.DetectionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.camera.CameraActivity"
             android:exported="false" />
         <activity
             android:name=".ui.register.RegisterActivity"
@@ -55,6 +48,15 @@
         <activity
             android:name=".ui.main.WelcomeActivity"
             android:exported="false" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

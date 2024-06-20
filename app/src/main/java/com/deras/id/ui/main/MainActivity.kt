@@ -12,9 +12,12 @@ import androidx.fragment.app.Fragment
 import com.deras.id.R
 import com.deras.id.databinding.ActivityMainBinding
 import com.deras.id.ui.article.ArticelFragment
+import com.deras.id.ui.camera.CameraActivity
 import com.deras.id.ui.home.HomeFragment
 import com.deras.id.ui.login.LoginActivity
 import com.deras.id.ui.profile.ProfileFragment
+import com.deras.id.utils.Constanta
+import com.deras.id.utils.Helper
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -52,6 +55,9 @@ class MainActivity : AppCompatActivity() {
                     switchFragment(ArticelFragment())
                     true
                 }
+                R.id.navigation_detection ->{
+                    checkCameraPermission()
+                }
                 R.id.navigation_profile -> {
                     switchFragment(ProfileFragment())
                     true
@@ -86,6 +92,19 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         finishAffinity()
+    }
+    private fun checkCameraPermission(): Boolean {
+        return if (Helper.isPermissionGranted(this, Manifest.permission.CAMERA)) {
+            startActivity(Intent(this, CameraActivity::class.java))
+            true
+        } else {
+            ActivityCompat.requestPermissions(
+                this@MainActivity,
+                arrayOf(Manifest.permission.CAMERA),
+                Constanta.CAMERA_PERMISSION_CODE
+            )
+            false
+        }
     }
 
     private fun navigateToLogin() {
