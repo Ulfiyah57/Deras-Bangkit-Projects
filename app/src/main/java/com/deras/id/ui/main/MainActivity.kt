@@ -11,14 +11,10 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.deras.id.R
 import com.deras.id.databinding.ActivityMainBinding
-import com.deras.id.ui.HistoryActivity
 import com.deras.id.ui.article.ArticelFragment
-import com.deras.id.ui.camera.CameraActivity
 import com.deras.id.ui.home.HomeFragment
 import com.deras.id.ui.login.LoginActivity
 import com.deras.id.ui.profile.ProfileFragment
-import com.deras.id.ui.utils.Constanta
-import com.deras.id.ui.utils.Helper
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -56,14 +52,6 @@ class MainActivity : AppCompatActivity() {
                     switchFragment(ArticelFragment())
                     true
                 }
-                R.id.navigation_detection -> {
-                    checkCameraPermission()
-                    true
-                }
-                R.id.navigation_history -> {
-                    checkStoragePermission()
-                    true
-                }
                 R.id.navigation_profile -> {
                     switchFragment(ProfileFragment())
                     true
@@ -88,51 +76,6 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    private fun checkCameraPermission(): Boolean {
-        return if (Helper.isPermissionGranted(this, Manifest.permission.CAMERA)) {
-            startActivity(Intent(this, CameraActivity::class.java))
-            true
-        } else {
-            ActivityCompat.requestPermissions(
-                this@MainActivity,
-                arrayOf(Manifest.permission.CAMERA),
-                Constanta.CAMERA_PERMISSION_CODE
-            )
-            false
-        }
-    }
-
-    private fun checkStoragePermission(): Boolean {
-        return if (Helper.isPermissionGranted(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            startActivity(Intent(this, HistoryActivity::class.java))
-            true
-        } else {
-            ActivityCompat.requestPermissions(
-                this@MainActivity,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                Constanta.STORAGE_PERMISSION_CODE
-            )
-            false
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>, grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            Constanta.CAMERA_PERMISSION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                    Helper.notifyGivePermission(this, "Berikan aplikasi izin mengakses kamera")
-                }
-            }
-            Constanta.STORAGE_PERMISSION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                    Helper.notifyGivePermission(this, "Berikan aplikasi izin storage untuk membaca dan menyimpan story")
-                }
-            }
-        }
-    }
 
     @Deprecated(
         "This method has been deprecated in favor of using the\n" +
