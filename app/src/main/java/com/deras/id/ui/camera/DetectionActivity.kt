@@ -25,18 +25,20 @@ class DetectionActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_PHOTO_RESULT = "extra_photo_result"
         const val EXTRA_CAMERA_MODE = "extra_camera_mode"
+        const val EXTRA_IMAGE_URI = "extra_image_uri"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detection)
-
-        // Initialize views
         detectionImageView = findViewById(R.id.detection_image)
         uploadButton = findViewById(R.id.btn_upload)
+        val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Set initial image or perform initial setup for ImageView
-        selectedImageFile = intent.getSerializableExtra(EXTRA_PHOTO_RESULT) as File?
+        selectedImageFile = intent.getSerializableExtra(EXTRA_PHOTO_RESULT) as? File
         selectedImageFile?.let {
             detectionImageView.setImageURI(Uri.fromFile(it))
         } ?: run {
@@ -62,6 +64,7 @@ class DetectionActivity : AppCompatActivity() {
                         putExtra(ResultActivity.EXTRA_CREATED_AT, it.createdAt ?: "")
                         putExtra(ResultActivity.EXTRA_SUGGESTION, it.suggestion ?: "")
                         putExtra(ResultActivity.EXTRA_EXPLANATION, it.explanation ?: "")
+                        putExtra(EXTRA_IMAGE_URI, Uri.fromFile(selectedImageFile).toString())
                     }
                     startActivity(intent)
                 } ?: run {

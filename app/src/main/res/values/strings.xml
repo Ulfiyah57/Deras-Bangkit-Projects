@@ -52,4 +52,5 @@
     <string name="Created_At">Created At</string>
     <string name="Suggestion">Sugestion</string>
     <string name="Explanation">Explanation</string>
+    <string name="Result_Detection">Result Detection</string>
 </resources>

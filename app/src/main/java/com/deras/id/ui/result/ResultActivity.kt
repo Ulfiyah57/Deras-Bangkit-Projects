@@ -1,7 +1,9 @@
 package com.deras.id.ui.result
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -19,8 +21,17 @@ class ResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_result)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        val resultImageView: ImageView = findViewById(R.id.result_image)
+        val imageUriString = intent.getStringExtra(EXTRA_IMAGE_URI)
+        val imageUri = imageUriString?.let { Uri.parse(it) }
+        imageUri?.let {
+            resultImageView.setImageURI(it)
+        }
 
         val resultImageUri = intent.getStringExtra(EXTRA_IMAGE_URI)
         val result = intent.getStringExtra(EXTRA_RESULT)
