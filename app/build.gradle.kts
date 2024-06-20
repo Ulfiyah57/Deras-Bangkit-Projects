@@ -19,14 +19,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-//        val properties = Properties()
-//        properties.load(rootProject.file("local.properties").inputStream())
-//
+        val properties = Properties()
+        properties.load(rootProject.file("local.properties").inputStream())
+
 //        val apiUrl = properties.getProperty("API_URL")?:"https://newsapi.org/v2/"
-//        val apiKey = properties.getProperty("API_KEY")?:"fc525f59a17c4fc6b170b732620626e0"
-//
+        val apiKey = properties.getProperty("API_KEY")?:"24e34f8f2eee4878993d7575ed1664ec"
+
 //        buildConfigField("String", "API_URL", "\"$apiUrl\"")
-//        buildConfigField("String", "API_KEY", "\"$apiKey\"")
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -81,7 +81,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.logging.interceptor)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation (libs.androidx.fragment.ktx)
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.activity.ktx)
     implementation(libs.circleimageview)
     implementation(libs.glide)

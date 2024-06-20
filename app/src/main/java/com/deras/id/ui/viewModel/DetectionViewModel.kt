@@ -13,7 +13,7 @@ import retrofit2.Response
 
 class DetectionViewModel : ViewModel() {
 
-    private val repository: DetectionRepository = DetectionRepository(ApiConfig.getApiService())
+    private val repository: DetectionRepository = DetectionRepository(ApiConfig.getPredictionApiService())
 
     private val _uploadResult = MutableLiveData<Response<ResponseDetection>>()
     val uploadResult: LiveData<Response<ResponseDetection>> get() = _uploadResult

@@ -11,8 +11,8 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.deras.id.R
 import com.deras.id.databinding.ActivityMainBinding
-import com.deras.id.ui.article.ArticelFragment
 import com.deras.id.ui.camera.CameraActivity
+import com.deras.id.ui.fragment.ArticleFragment
 import com.deras.id.ui.home.HomeFragment
 import com.deras.id.ui.login.LoginActivity
 import com.deras.id.ui.profile.ProfileFragment
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.navigation_article -> {
-                    switchFragment(ArticelFragment())
+                    switchFragment(ArticleFragment())
                     true
                 }
                 R.id.navigation_detection ->{
