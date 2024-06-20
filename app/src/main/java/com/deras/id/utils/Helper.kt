@@ -162,7 +162,7 @@ object Helper {
         }
     }
 
-    private fun createCustomTempFile(context: Context): File {
+    fun createCustomTempFile(context: Context): File {
         val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(currentTimestamp, ".jpg", storageDir)
     }
@@ -186,7 +186,7 @@ object Helper {
     }
 
     private fun getDefaultFileName(): String {
-        return "STORY-${getRandomString()}.jpg"
+        return "Detection-${getRandomString()}.jpg"
     }
 
     fun createFile(

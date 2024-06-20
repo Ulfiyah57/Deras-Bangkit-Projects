@@ -53,27 +53,28 @@ class DetectionActivity : AppCompatActivity() {
         }
 
         // Observe the upload result
-        detectionViewModel.uploadResult.observe(this) { responseDetection ->
-            responseDetection?.data?.let { data ->
-                val intent = Intent(this, ResultActivity::class.java).apply {
-                    putExtra("result", data.result)
-                    putExtra("createdAt", data.createdAt)
-                    putExtra("suggestion", data.suggestion)
-                    putExtra("explanation", data.explanation)
+        detectionViewModel.uploadResult.observe(this) { response ->
+            if (response.isSuccessful) {
+                val data = response.body()?.data
+                data?.let {
+                    val intent = Intent(this, ResultActivity::class.java).apply {
+                        putExtra(ResultActivity.EXTRA_RESULT, it.result ?: "")
+                        putExtra(ResultActivity.EXTRA_CREATED_AT, it.createdAt ?: "")
+                        putExtra(ResultActivity.EXTRA_SUGGESTION, it.suggestion ?: "")
+                        putExtra(ResultActivity.EXTRA_EXPLANATION, it.explanation ?: "")
+                    }
+                    startActivity(intent)
+                } ?: run {
+                    Toast.makeText(this, "Result data is null", Toast.LENGTH_SHORT).show()
                 }
-                startActivity(intent)
-            } ?: run {
-                Toast.makeText(
-                    this,
-                    responseDetection?.message ?: "Upload failed",
-                    Toast.LENGTH_SHORT
-                ).show()
+            } else {
+                Toast.makeText(this, "Upload failed: ${response.message()}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun uploadImage(file: File) {
         val uri = Uri.fromFile(file)
-        detectionViewModel.uploadImage(uri, "Image description")
+        detectionViewModel.uploadImage(uri)
     }
 }

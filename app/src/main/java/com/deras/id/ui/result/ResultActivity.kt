@@ -1,5 +1,6 @@
 package com.deras.id.ui.result
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,6 +20,7 @@ class ResultActivity : AppCompatActivity() {
 
     private lateinit var viewModel: DetectionViewModel
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
@@ -30,8 +32,8 @@ class ResultActivity : AppCompatActivity() {
         tvSuggestion = findViewById(R.id.tvSuggestion)
         tvExplanation = findViewById(R.id.tvExplanation)
 
-        // Initialize ViewModel
-        viewModel = ViewModelProvider(this)[DetectionViewModel::class.java]
+        // Initialize ViewModel using ViewModelProvider
+        viewModel = ViewModelProvider(this).get(DetectionViewModel::class.java)
 
         // Get data from intent
         val resultImageUri = intent.getStringExtra(EXTRA_IMAGE_URI)
@@ -41,25 +43,40 @@ class ResultActivity : AppCompatActivity() {
         val explanation = intent.getStringExtra(EXTRA_EXPLANATION)
         val detectionId = intent.getStringExtra(EXTRA_DETECTION_ID)
 
-        // Set data to views
+        // Set image using Glide if resultImageUri is not null
         resultImageUri?.let {
             Glide.with(this)
                 .load(it)
                 .into(ivResultImage)
         }
+
+        // Set text values to TextViews
         tvResult.text = result
         tvCreatedAt.text = createdAt
         tvSuggestion.text = suggestion
         tvExplanation.text = explanation
 
         // Call API to get detection result if detectionId is not null
-        detectionId?.let {
-            viewModel.getDetectionResult(it).observe(this) { response ->
-                // Update UI with detection result data
-                tvResult.text = response.data?.result ?: "Result not available"
-                tvCreatedAt.text = response.data?.createdAt ?: "Created at not available"
-                tvSuggestion.text = response.data?.suggestion ?: "Suggestion not available"
-                tvExplanation.text = response.data?.explanation ?: "Explanation not available"
+        detectionId?.let { id ->
+            viewModel.getDetectionResult(id)
+            viewModel.detectionResult.observe(this) { response ->
+                if (response != null && response.isSuccessful) {
+                    val data = response.body()?.data
+                    // Update UI with detection result data
+                    data?.let {
+                        tvResult.text = it.result ?: "Result not available"
+                        tvCreatedAt.text = it.createdAt ?: "Created at not available"
+                        tvSuggestion.text = it.suggestion ?: "Suggestion not available"
+                        tvExplanation.text = it.explanation ?: "Explanation not available"
+                    }
+                } else {
+                    // Handle error scenario or null response
+                    // Show error message or handle accordingly
+                    tvResult.text = "Result not available"
+                    tvCreatedAt.text = "Created at not available"
+                    tvSuggestion.text = "Suggestion not available"
+                    tvExplanation.text = "Explanation not available"
+                }
             }
         }
     }

@@ -107,10 +107,9 @@ class CameraActivity : AppCompatActivity() {
         val chooser = Intent.createChooser(intent, getString(R.string.UI_info_intent_image))
         openGalleryLauncher.launch(chooser)
     }
-
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
-        val photoFile = Helper.createFile(application)
+        val photoFile = Helper.createCustomTempFile(this)
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
         imageCapture.takePicture(
             outputOptions,

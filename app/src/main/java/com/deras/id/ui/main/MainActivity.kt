@@ -9,9 +9,7 @@ import androidx.core.app.ActivityCompat
 import com.deras.id.R
 import com.deras.id.databinding.ActivityMainBinding
 import com.deras.id.ui.history.HistoryActivity
-import com.deras.id.ui.article.ArticleActivity
 import com.deras.id.ui.camera.CameraActivity
-import com.deras.id.ui.profile.ProfileActivity
 import com.deras.id.utils.Constanta
 import com.deras.id.utils.Helper
 
@@ -35,38 +33,13 @@ class MainActivity : AppCompatActivity() {
                     // Do nothing, already on home
                     true
                 }
-                R.id.navigation_article -> {
-                    checkArticlePermission()
-                }
                 R.id.navigation_detection -> {
                     checkCameraPermission()
                 }
                 R.id.navigation_history -> {
                     checkStoragePermission()
-                }
-                R.id.navigation_profile -> {
-                    navigateToProfile()
-                    true
-                }
-                else -> false
+                }else -> false
             }
-        }
-    }
-
-    private fun checkArticlePermission(): Boolean {
-        return if (Helper.isPermissionGranted(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            startActivity(Intent(this, ArticleActivity::class.java))
-            true
-        } else {
-            ActivityCompat.requestPermissions(
-                this@MainActivity,
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ),
-                Constanta.LOCATION_PERMISSION_CODE
-            )
-            false
         }
     }
 
@@ -96,10 +69,6 @@ class MainActivity : AppCompatActivity() {
             )
             false
         }
-    }
-
-    private fun navigateToProfile() {
-        startActivity(Intent(this, ProfileActivity::class.java))
     }
 
     override fun onRequestPermissionsResult(
