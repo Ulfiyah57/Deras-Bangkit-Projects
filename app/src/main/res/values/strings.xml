@@ -39,19 +39,11 @@
     <string name="result">Result analyze</string>
     <string name="Result">Hasil : </string>
     <string name="button_text_analiyze">Analyze</string>
-    <string name="image_classifier_failed">Images classifier failed</string>
-    <string name="image_processing_failed">Images processing failed</string>
-    <string name="articles">images article</string>
-    <string name="titles">Dermatitis atopik</string>
-    <string name="description"><![CDATA[Dermatitis Atopik  adalah  suatu kondisi kulit yang bersifat kronis dan seringkali bersifat reaktif terhadap alergen atau iritan tertentu.]]></string>
-    <string name="history">History</string>
-    <string name="Delet_History">Delet history</string>
-    <string name="label">Skin Allergy</string>
-    <string name="Created_At">Created At</string>
-    <string name="Suggestion">Sugestion</string>
-    <string name="Explanation">Explanation</string>
     <string name="default_web_client_id">87946930847-iuvjls5ujuk30tuj915mc2bsvamt02af.apps.googleusercontent.com</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="articles">Articles</string>
+    <string name="titles">Skin cancer the abnormal growth of skin cells</string>
+    <string name="description">Skin cancer — the abnormal growth of skin cells — most often develops on skin exposed to the sun. But this common form of cancer can also occur on areas of your skin not ordinarily exposed to sunlight. There are three major types of skin cancer — basal cell carcinoma, squamous cell carcinoma and melanoma</string>
     <string name="profile_image">image</string>
 </resources>

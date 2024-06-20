@@ -7,12 +7,17 @@ import android.util.Size
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.*
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.deras.id.R
 import com.deras.id.databinding.ActivityCameraBinding
-import com.deras.id.utils.Helper
+import com.deras.id.ui.utils.Helper
+import java.lang.StringBuilder
 
 @Suppress("DEPRECATION")
 class CameraActivity : AppCompatActivity() {
@@ -22,26 +27,25 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var openGalleryLauncher: ActivityResultLauncher<Intent>
 
     private lateinit var binding: ActivityCameraBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initGallery()
-        binding.apply {
-            btnShutter.setOnClickListener {
+        binding.let {
+            it.btnShutter.setOnClickListener {
                 takePhoto()
             }
-            btnSwitch.setOnClickListener {
+            it.btnSwitch.setOnClickListener {
                 cameraSelector =
                     if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) CameraSelector.DEFAULT_FRONT_CAMERA
                     else CameraSelector.DEFAULT_BACK_CAMERA
                 startCamera()
             }
-            btnGallery.setOnClickListener {
+            it.btnGallery.setOnClickListener {
                 startGallery()
             }
-            btnBack.setOnClickListener {
+            it.btnBack.setOnClickListener {
                 onBackPressed()
             }
         }
@@ -52,29 +56,31 @@ class CameraActivity : AppCompatActivity() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture.addListener({
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+            val imageAnalysis = ImageAnalysis.Builder()
+                /* compress image to match API requirements -> max file 1MB to be uploaded */
+                .setTargetResolution(Size(480, 720))
+                .build()
             val preview = Preview.Builder()
                 .build()
                 .also {
                     it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 }
             imageCapture = ImageCapture.Builder().setTargetResolution(Size(480, 720)).build()
-            val imageAnalysis = ImageAnalysis.Builder()
-                .setTargetResolution(Size(480, 720))
-                .build()
-
             try {
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(
                     this,
                     cameraSelector,
                     preview,
-                    imageCapture,
-                    imageAnalysis
+                    imageCapture, imageAnalysis
                 )
             } catch (e: Exception) {
                 Helper.showDialogInfo(
                     this,
-                    "${getString(R.string.UI_error_camera_error)} : ${e.message}"
+                    StringBuilder(getString(R.string.UI_error_camera_error))
+                        .append(" : ")
+                        .append(e.message)
+                        .toString()
                 )
             }
         }, ContextCompat.getMainExecutor(this))

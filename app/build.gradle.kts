@@ -60,6 +60,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.tensorflow.lite.support)
+    implementation(libs.tensorflow.lite.metadata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,11 +70,6 @@ dependencies {
     implementation(libs.androidx.camera.camera2)
     implementation(libs.camera.lifecycle)
     implementation(libs.camera.view)
-
-    //Tensorflowlite
-    implementation(libs.tensorflow.lite.support)
-    implementation(libs.tensorflow.tensorflow.lite.task.vision)
-    implementation(libs.tensorflow.lite.gpu)
 
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)

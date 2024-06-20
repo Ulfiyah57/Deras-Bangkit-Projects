@@ -11,14 +11,14 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.deras.id.R
 import com.deras.id.databinding.ActivityMainBinding
+import com.deras.id.ui.HistoryActivity
 import com.deras.id.ui.article.ArticelFragment
 import com.deras.id.ui.camera.CameraActivity
-import com.deras.id.ui.history.HistoryActivity
 import com.deras.id.ui.home.HomeFragment
 import com.deras.id.ui.login.LoginActivity
 import com.deras.id.ui.profile.ProfileFragment
-import com.deras.id.utils.Constanta
-import com.deras.id.utils.Helper
+import com.deras.id.ui.utils.Constanta
+import com.deras.id.ui.utils.Helper
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -58,9 +58,11 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_detection -> {
                     checkCameraPermission()
+                    true
                 }
                 R.id.navigation_history -> {
                     checkStoragePermission()
+                    true
                 }
                 R.id.navigation_profile -> {
                     switchFragment(ProfileFragment())

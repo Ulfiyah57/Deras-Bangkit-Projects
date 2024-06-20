@@ -1,4 +1,5 @@
-package com.deras.id.utils
+package com.deras.id.ui.utils
+
 
 import android.annotation.SuppressLint
 import android.app.Application
@@ -7,7 +8,10 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Environment
@@ -18,7 +22,6 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.deras.id.R
 import java.io.*
@@ -28,11 +31,8 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-object Helper {
 
-    fun toast(context: Context, message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
+object Helper {
 
     fun notifyGivePermission(context: Context, message: String) {
         val dialog = dialogInfoBuilder(context, message)
@@ -84,6 +84,7 @@ object Helper {
         return dialog
     }
 
+    /* ready use to go dialog with related params */
     fun showDialogInfo(
         context: Context,
         message: String,
@@ -97,6 +98,7 @@ object Helper {
         dialog.show()
     }
 
+    /* show preview image in folder fragments */
     fun showDialogPreviewImage(
         context: Context,
         image: Bitmap,
@@ -123,19 +125,26 @@ object Helper {
         }
         dialog.show()
     }
-
+    /* -------------------------
+   *  DATE FORMAT
+   * ------------------------- */
     private const val TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     private const val SIMPLE_DATE_FORMAT = "dd MMM yyyy HH.mm"
 
+    /*
+    * DATE INSTANCE
+    * */
     private var defaultDate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
 
     @SuppressLint("ConstantLocale")
     val simpleDate = SimpleDateFormat(SIMPLE_DATE_FORMAT, Locale.getDefault())
 
+    /* curent date in date */
     private fun getCurrentDate(): Date {
         return Date()
     }
 
+    /* curent date in string */
     fun getCurrentDateString(): String = defaultDate.format(getCurrentDate())
 
     @SuppressLint("ConstantLocale")
@@ -144,14 +153,18 @@ object Helper {
         Locale.getDefault()
     ).format(System.currentTimeMillis())
 
+    /* string simpleDate (unformatted) to date */
     private fun parseSimpleDate(dateValue: String): Date {
         return defaultDate.parse(dateValue) as Date
     }
 
+    /* simpleDate (Date) to string */
     private fun getSimpleDate(date: Date): String = simpleDate.format(date)
 
+    /* string to string */
     fun getSimpleDateString(dateValue: String): String = getSimpleDate(parseSimpleDate(dateValue))
 
+    /* string UTC format to date */
     private fun parseUTCDate(timestamp: String): Date {
         return try {
             val formatter = SimpleDateFormat(TIMESTAMP_FORMAT, Locale.getDefault())
@@ -161,6 +174,10 @@ object Helper {
             getCurrentDate()
         }
     }
+
+    /* -------------------------
+    * FILE HELPER & BITMAP
+    * ------------------------- */
 
     private fun createCustomTempFile(context: Context): File {
         val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -185,13 +202,15 @@ object Helper {
         return List(len) { alphabet.random() }.joinToString("")
     }
 
+    /* get default exported file name */
     private fun getDefaultFileName(): String {
         return "STORY-${getRandomString()}.jpg"
     }
 
+    /* create export file (story / download) to exact path location */
     fun createFile(
         application: Application,
-        folder: String = "Detection",
+        folder: String = "story",
         filename: String = getDefaultFileName()
     ): File {
         val mediaDir = application.externalMediaDirs.firstOrNull()?.let {
@@ -203,6 +222,7 @@ object Helper {
         return File(outputDirectory, filename)
     }
 
+    /* load bitmap from exact path location */
     fun loadImageFromStorage(path: String): Bitmap? {
         val imgFile = File(path)
         return if (imgFile.exists()) {
@@ -210,11 +230,14 @@ object Helper {
         } else null
     }
 
+    /* load BITMAP from string URL */
     fun bitmapFromURL(context: Context, urlString: String): Bitmap {
         return try {
+            /* allow access content from URL internet */
             val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)
 
+            /* fetch image data from URL */
             val url = URL(urlString)
             val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
             connection.doInput = true
@@ -231,9 +254,15 @@ object Helper {
         val height = bm.height
         val scaleWidth = newWidth.toFloat() / width
         val scaleHeight = newHeight.toFloat() / height
+
+        /* init matrix to resize bitmap */
         val matrix = Matrix()
         matrix.postScale(scaleWidth, scaleHeight)
-        return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false)
+
+        /* recreate new bitmap as new defined size */
+        val resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false)
+        bm.recycle()
+        return resizedBitmap
     }
 
     fun rotateBitmap(bitmap: Bitmap, isBackCamera: Boolean = false): Bitmap {
@@ -264,7 +293,4 @@ object Helper {
         }
     }
 
-    fun convertMillisToDateString(millis: Long): String {
-        return SimpleDateFormat("dd MMM yyyy HH.mm", Locale.getDefault()).format(Date(millis))
-    }
 }
