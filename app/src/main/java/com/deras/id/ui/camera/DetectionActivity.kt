@@ -31,9 +31,11 @@ class DetectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detection)
 
+        // Initialize views
         detectionImageView = findViewById(R.id.detection_image)
         uploadButton = findViewById(R.id.btn_upload)
 
+        // Set initial image or perform initial setup for ImageView
         selectedImageFile = intent.getSerializableExtra(EXTRA_PHOTO_RESULT) as File?
         selectedImageFile?.let {
             detectionImageView.setImageURI(Uri.fromFile(it))
@@ -41,6 +43,7 @@ class DetectionActivity : AppCompatActivity() {
             detectionImageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.images_empty))
         }
 
+        // Set up button click listener
         uploadButton.setOnClickListener {
             selectedImageFile?.let { file ->
                 uploadImage(file)
@@ -49,6 +52,7 @@ class DetectionActivity : AppCompatActivity() {
             }
         }
 
+        // Observe the upload result
         detectionViewModel.uploadResult.observe(this) { response ->
             if (response.isSuccessful) {
                 val data = response.body()?.data
