@@ -7,9 +7,11 @@ import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.deras.id.R
 import com.deras.id.databinding.ActivityResultBinding
+import com.deras.id.ui.home.HomeFragment // Pastikan HomeFragment diimpor dengan benar
 import com.deras.id.ui.viewModel.DetectionViewModel
 
 class ResultActivity : AppCompatActivity() {
@@ -54,6 +56,17 @@ class ResultActivity : AppCompatActivity() {
         detectionId?.let { id ->
             viewModel.getDetectionResult(id)
         }
+    }
+
+    @SuppressLint("ResourceType")
+    override fun onSupportNavigateUp(): Boolean {
+        // Mengganti fragment dengan HomeFragment saat tombol kembali ditekan
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.homefragment, HomeFragment())
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .addToBackStack(null)
+            .commit()
+        return true
     }
 
     companion object {

@@ -75,6 +75,10 @@ class DetectionActivity : AppCompatActivity() {
             }
         }
     }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 
     private fun uploadImage(file: File) {
         val uri = Uri.fromFile(file)
