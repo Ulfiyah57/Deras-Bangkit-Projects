@@ -19,14 +19,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        val properties = Properties()
-        properties.load(rootProject.file("local.properties").inputStream())
-
-        val apiUrl = properties.getProperty("API_URL")?:"https://newsapi.org/v2/"
-        val apiKey = properties.getProperty("API_KEY")?:"fc525f59a17c4fc6b170b732620626e0"
-
-        buildConfigField("String", "API_URL", "\"$apiUrl\"")
-        buildConfigField("String", "API_KEY", "\"$apiKey\"")
+//        val properties = Properties()
+//        properties.load(rootProject.file("local.properties").inputStream())
+//
+//        val apiUrl = properties.getProperty("API_URL")?:"https://newsapi.org/v2/"
+//        val apiKey = properties.getProperty("API_KEY")?:"fc525f59a17c4fc6b170b732620626e0"
+//
+//        buildConfigField("String", "API_URL", "\"$apiUrl\"")
+//        buildConfigField("String", "API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
