@@ -25,13 +25,7 @@
             android:name=".ui.result.ResultActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.profile.ProfileActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.history.HistoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.article.ArticleActivity"
             android:exported="false" />
         <activity
             android:name=".ui.camera.DetectionActivity"
@@ -39,11 +33,6 @@
         <activity
             android:name=".ui.camera.CameraActivity"
             android:exported="false" />
-        <!--
-<activity
-            android:name=".ui.main.MainActivity"
-            android:exported="false" />
-        -->
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">
@@ -53,9 +42,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.main.WelcomeActivity"
-            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

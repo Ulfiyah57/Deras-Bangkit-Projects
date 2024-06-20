@@ -21,13 +21,16 @@ class DetectionViewModel : ViewModel() {
     private val _detectionResult = MutableLiveData<Response<ResponseDetection>>()
     val detectionResult: LiveData<Response<ResponseDetection>> get() = _detectionResult
 
+    val createdAt = MutableLiveData<String>()
+    val suggestion = MutableLiveData<String>()
+    val explanation = MutableLiveData<String>()
+
     fun uploadImage(fileUri: Uri) {
         viewModelScope.launch {
             try {
                 val response = repository.uploadImage(fileUri)
                 _uploadResult.postValue(response)
             } catch (e: Exception) {
-                // Handle exceptions
                 e.printStackTrace()
             }
         }
@@ -38,8 +41,19 @@ class DetectionViewModel : ViewModel() {
             try {
                 val response = repository.getDetectionResult(id)
                 _detectionResult.postValue(response)
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
+                    data?.let {
+                        createdAt.postValue(it.createdAt ?: "Created at not available")
+                        suggestion.postValue(it.suggestion ?: "Suggestion not available")
+                        explanation.postValue(it.explanation ?: "Explanation not available")
+                    }
+                } else {
+                    createdAt.postValue("Created at not available")
+                    suggestion.postValue("Suggestion not available")
+                    explanation.postValue("Explanation not available")
+                }
             } catch (e: Exception) {
-                // Handle exceptions
                 e.printStackTrace()
             }
         }

@@ -2,40 +2,26 @@ package com.deras.id.ui.result
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.deras.id.R
+import com.deras.id.databinding.ActivityResultBinding
 import com.deras.id.ui.viewModel.DetectionViewModel
 
 class ResultActivity : AppCompatActivity() {
 
-    private lateinit var ivResultImage: ImageView
-    private lateinit var tvResult: TextView
-    private lateinit var tvCreatedAt: TextView
-    private lateinit var tvSuggestion: TextView
-    private lateinit var tvExplanation: TextView
-
-    private lateinit var viewModel: DetectionViewModel
+    private lateinit var binding: ActivityResultBinding
+    private val viewModel: DetectionViewModel by viewModels()
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_result)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_result)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
-        // Initialize views
-        ivResultImage = findViewById(R.id.result_image)
-        tvResult = findViewById(R.id.tvResult)
-        tvCreatedAt = findViewById(R.id.tvCreatedAt)
-        tvSuggestion = findViewById(R.id.tvSuggestion)
-        tvExplanation = findViewById(R.id.tvExplanation)
-
-        // Initialize ViewModel using ViewModelProvider
-        viewModel = ViewModelProvider(this).get(DetectionViewModel::class.java)
-
-        // Get data from intent
         val resultImageUri = intent.getStringExtra(EXTRA_IMAGE_URI)
         val result = intent.getStringExtra(EXTRA_RESULT)
         val createdAt = intent.getStringExtra(EXTRA_CREATED_AT)
@@ -43,41 +29,19 @@ class ResultActivity : AppCompatActivity() {
         val explanation = intent.getStringExtra(EXTRA_EXPLANATION)
         val detectionId = intent.getStringExtra(EXTRA_DETECTION_ID)
 
-        // Set image using Glide if resultImageUri is not null
         resultImageUri?.let {
             Glide.with(this)
                 .load(it)
-                .into(ivResultImage)
+                .into(binding.resultImage)
         }
 
-        // Set text values to TextViews
-        tvResult.text = result
-        tvCreatedAt.text = createdAt
-        tvSuggestion.text = suggestion
-        tvExplanation.text = explanation
+        binding.tvResult.text = result
+        viewModel.createdAt.value = createdAt
+        viewModel.suggestion.value = suggestion
+        viewModel.explanation.value = explanation
 
-        // Call API to get detection result if detectionId is not null
         detectionId?.let { id ->
             viewModel.getDetectionResult(id)
-            viewModel.detectionResult.observe(this) { response ->
-                if (response != null && response.isSuccessful) {
-                    val data = response.body()?.data
-                    // Update UI with detection result data
-                    data?.let {
-                        tvResult.text = it.result ?: "Result not available"
-                        tvCreatedAt.text = it.createdAt ?: "Created at not available"
-                        tvSuggestion.text = it.suggestion ?: "Suggestion not available"
-                        tvExplanation.text = it.explanation ?: "Explanation not available"
-                    }
-                } else {
-                    // Handle error scenario or null response
-                    // Show error message or handle accordingly
-                    tvResult.text = "Result not available"
-                    tvCreatedAt.text = "Created at not available"
-                    tvSuggestion.text = "Suggestion not available"
-                    tvExplanation.text = "Explanation not available"
-                }
-            }
         }
     }
 
