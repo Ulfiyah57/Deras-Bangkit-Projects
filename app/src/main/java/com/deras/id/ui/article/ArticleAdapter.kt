@@ -1,4 +1,4 @@
-package com.deras.id.ui.adapter
+package com.deras.id.ui.article
 
 import android.content.Intent
 import android.net.Uri
@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.deras.id.databinding.ArticleCardBinding
-import com.deras.id.response.Article
+import com.deras.id.response.ArticlesItem
 
-class ArticleAdapter : ListAdapter<Article, ArticleAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class ArticleAdapter : ListAdapter<ArticlesItem, ArticleAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ArticleCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -24,7 +24,7 @@ class ArticleAdapter : ListAdapter<Article, ArticleAdapter.MyViewHolder>(DIFF_CA
     }
 
     class MyViewHolder(private val binding: ArticleCardBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(article: Article) {
+        fun bind(article: ArticlesItem) {
             binding.newsTitle.text = article.title
             binding.newsDescription.text = article.description
             if (article.urlToImage != null) {
@@ -41,11 +41,11 @@ class ArticleAdapter : ListAdapter<Article, ArticleAdapter.MyViewHolder>(DIFF_CA
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Article>() {
-            override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ArticlesItem>() {
+            override fun areItemsTheSame(oldItem: ArticlesItem, newItem: ArticlesItem): Boolean {
                 return oldItem.url == newItem.url
             }
-            override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+            override fun areContentsTheSame(oldItem: ArticlesItem, newItem: ArticlesItem): Boolean {
                 return oldItem == newItem
             }
         }

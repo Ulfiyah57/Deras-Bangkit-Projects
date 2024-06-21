@@ -5,27 +5,52 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deras.id.database.remote.ApiConfig
-import com.deras.id.response.Article
-import com.deras.id.response.ResponseArticle
+import com.deras.id.response.ArticlesItem
+import com.deras.id.ui.article.ResultState
 import kotlinx.coroutines.launch
-import retrofit2.Response
+import retrofit2.HttpException
+import java.io.IOException
 
 class ArticleViewModel : ViewModel() {
 
-    private val _articles = MutableLiveData<List<Article>?>()
-    val articles: LiveData<List<Article>?> get() = _articles
+    private val _articles = MutableLiveData<ResultState<List<ArticlesItem>>>()
+    val articles: LiveData<ResultState<List<ArticlesItem>>> get() = _articles
 
     fun fetchArticles() {
         viewModelScope.launch {
             try {
+                _articles.value = ResultState.Loading
                 val response = ApiConfig.getArticleApiService().getNews()
                 if (response.isSuccessful) {
-                    _articles.value = response.body()?.articles
+                    _articles.value = ResultState.Success(response.body()?.articles?.filterNotNull() ?: emptyList())
                 } else {
-                    // Handle error
+                    _articles.value = ResultState.Error("Failed to fetch articles")
                 }
+            } catch (e: IOException) {
+                _articles.value = ResultState.Error("Network error occurred")
+            } catch (e: HttpException) {
+                _articles.value = ResultState.Error("HTTP error occurred")
             } catch (e: Exception) {
-                // Handle exception
+                _articles.value = ResultState.Error("Unknown error occurred")
+            }
+        }
+    }
+    fun fetchAllNews() {
+        viewModelScope.launch {
+            try {
+                _articles.value = ResultState.Loading
+                val response = ApiConfig.getArticleApiService().getAllNews()
+                if (response.isSuccessful) {
+                    _articles.value = ResultState.Success(response.body()?.articles?.filterNotNull() ?: emptyList())
+                } else {
+                    _articles.value = ResultState.Error("Failed to fetch articles")
+                }
+            } catch (e: IOException) {
+                _articles.value = ResultState.Error("Network error occurred")
+            } catch (e: HttpException) {
+                _articles.value = ResultState.Error("HTTP error occurred")
+            } catch (e: Exception) {
+                _articles.value = ResultState.Error("Unknown error occurred")
             }
         }
     }
