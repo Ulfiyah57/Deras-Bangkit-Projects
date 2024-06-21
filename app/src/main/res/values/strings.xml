@@ -53,4 +53,10 @@
     <string name="Suggestion">Sugestion</string>
     <string name="Explanation">Explanation</string>
     <string name="Result_Detection">Result Detection</string>
+    <string name="question_delet_history">Yakin ingin menghapus history?</string>
+    <string name="question_delet_permanen">History akan terhapus permanen</string>
+    <string name="Delet">Hapus</string>
+    <string name="history_delet">History dihapus</string>
+    <string name="Cancel">Batal</string>
+    <string name="You_have_history_detection">Anda tidak memiliki history</string>
 </resources>

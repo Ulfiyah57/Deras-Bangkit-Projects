@@ -10,8 +10,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.deras.id.R
+import com.deras.id.database.HistoryEntity
 import com.deras.id.ui.result.ResultActivity
 import com.deras.id.ui.viewModel.DetectionViewModel
+import com.deras.id.ui.history.HistoryViewModel
+import com.deras.id.ui.history.ViewModelFactory
 import java.io.File
 
 @Suppress("DEPRECATION")
@@ -20,6 +23,9 @@ class DetectionActivity : AppCompatActivity() {
     private lateinit var detectionImageView: ImageView
     private lateinit var uploadButton: Button
     private val detectionViewModel: DetectionViewModel by viewModels()
+    private val historyViewModel: HistoryViewModel by viewModels {
+        ViewModelFactory.getInstance(application)
+    }
     private var selectedImageFile: File? = null
 
     companion object {
@@ -57,6 +63,17 @@ class DetectionActivity : AppCompatActivity() {
             if (response.isSuccessful) {
                 val data = response.body()?.data
                 data?.let {
+                    // Save the detection result to the database
+                    val historyEntity = HistoryEntity(
+                        date = it.createdAt ?: "",
+                        result = it.result ?: "",
+                        uri = Uri.fromFile(selectedImageFile).toString(),
+                        suggestion = it.suggestion,
+                        explanation = it.explanation
+                    )
+                    historyViewModel.addHistory(historyEntity)
+
+                    // Start ResultActivity
                     val intent = Intent(this, ResultActivity::class.java).apply {
                         putExtra(ResultActivity.EXTRA_RESULT, it.result ?: "")
                         putExtra(ResultActivity.EXTRA_CREATED_AT, it.createdAt ?: "")

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.deras.id.database.remote.ApiConfig
 import com.deras.id.database.repo.DetectionRepository
 import com.deras.id.response.ResponseDetection
+import com.deras.id.utils.convertMillisToDateString
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -19,7 +20,6 @@ class DetectionViewModel : ViewModel() {
     val uploadResult: LiveData<Response<ResponseDetection>> get() = _uploadResult
 
     private val _detectionResult = MutableLiveData<Response<ResponseDetection>>()
-    val detectionResult: LiveData<Response<ResponseDetection>> get() = _detectionResult
 
     val createdAt = MutableLiveData<String>()
     val suggestion = MutableLiveData<String>()
@@ -44,7 +44,7 @@ class DetectionViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val data = response.body()?.data
                     data?.let {
-                        createdAt.postValue(it.createdAt ?: "Created at not available")
+                        createdAt.postValue(convertMillisToDateString(it.createdAt ?: 0))
                         suggestion.postValue(it.suggestion ?: "Suggestion not available")
                         explanation.postValue(it.explanation ?: "Explanation not available")
                     }

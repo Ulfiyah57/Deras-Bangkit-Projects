@@ -1,22 +1,24 @@
-package com.deras.id.database.repo
+package com.deras.id
 
-import android.content.Context
+import android.app.Application
+import androidx.lifecycle.LiveData
 import com.deras.id.database.DerasDB
+import com.deras.id.database.HistoryDao
 import com.deras.id.database.HistoryEntity
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class HistoryRepo (context: Context) {
-    private val historyDao = DerasDB.getDatabase(context.applicationContext).historyDao()
+class HistoryRepo(application: Application) {
+    private val historyDao: HistoryDao = DerasDB.getDatabase(application).historyDao()
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
-        suspend fun addHistory(historyentity: HistoryEntity) {
-        historyDao.addHistory(historyentity)
+    suspend fun addHistory(historyEntity: HistoryEntity) {
+        historyDao.addHistory(historyEntity)
     }
 
-    fun getHistory(): List<HistoryEntity> = historyDao.getHistory()
+    fun getHistory(): LiveData<List<HistoryEntity>> = historyDao.getHistory()
 
-    fun removeAllHistory() {
-        executorService.execute { historyDao.removeAllHistory() }
+    suspend fun removeAllHistory() {
+        historyDao.removeAllHistory()
     }
 }

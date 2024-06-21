@@ -12,6 +12,7 @@ import com.deras.id.R
 import com.deras.id.databinding.ActivityMainBinding
 import com.deras.id.ui.article.ArticleFragment
 import com.deras.id.ui.camera.CameraActivity
+import com.deras.id.ui.history.HistoryFragment
 import com.deras.id.ui.home.HomeFragment
 import com.deras.id.ui.login.LoginActivity
 import com.deras.id.ui.profile.ProfileFragment
@@ -52,6 +53,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_article -> {
                     switchFragment(ArticleFragment())
+                    true
+                }
+                R.id.navigation_history -> {
+                    switchFragment(HistoryFragment())
                     true
                 }
                 R.id.navigation_detection ->{
