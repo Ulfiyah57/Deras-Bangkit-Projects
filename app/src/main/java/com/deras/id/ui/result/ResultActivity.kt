@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.deras.id.R
 import com.deras.id.databinding.ActivityResultBinding
-import com.deras.id.ui.home.HomeFragment // Pastikan HomeFragment diimpor dengan benar
+import com.deras.id.ui.home.HomeFragment
 import com.deras.id.ui.viewModel.DetectionViewModel
 
 class ResultActivity : AppCompatActivity() {

@@ -62,6 +62,7 @@ class DetectionActivity : AppCompatActivity() {
                         putExtra(ResultActivity.EXTRA_CREATED_AT, it.createdAt ?: "")
                         putExtra(ResultActivity.EXTRA_SUGGESTION, it.suggestion ?: "")
                         putExtra(ResultActivity.EXTRA_EXPLANATION, it.explanation ?: "")
+                        putExtra(ResultActivity.EXTRA_IMAGE_URI, Uri.fromFile(selectedImageFile).toString())
                     }
                     startActivity(intent)
                 } ?: run {
