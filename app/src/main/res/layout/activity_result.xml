@@ -20,7 +20,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="@string/Result_Detection" />
+            app:title="@string/Result_Detection"
+            android:fontFamily="@font/poppinsbold"
+            app:titleTextColor="@color/green"/>
 
         <ScrollView
             android:layout_width="match_parent"

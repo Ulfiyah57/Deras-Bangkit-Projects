@@ -46,11 +46,16 @@
     <string name="titles">Dermatitis atopik</string>
     <string name="description"><![CDATA[Dermatitis Atopik  adalah  suatu kondisi kulit yang bersifat kronis dan seringkali bersifat reaktif terhadap alergen atau iritan tertentu.]]></string>
     <string name="profile_image">image</string>
-    <string name="history">History</string>
+    <string name="history">History Detection</string>
     <string name="Delet_History">Delet history</string>
     <string name="label">Skin Allergy</string>
     <string name="Created_At">Created At</string>
     <string name="Suggestion">Sugestion</string>
     <string name="Explanation">Explanation</string>
     <string name="Result_Detection">Result Detection</string>
+    <string name="name_profile">Aldo</string>
+    <string name="Call_welcome">Haii...</string>
+    <string name="title_article">Article</string>
+    <string name="Logout">Logout</string>
+    <string name="top_headline_new">Top Headline Article</string>
 </resources>

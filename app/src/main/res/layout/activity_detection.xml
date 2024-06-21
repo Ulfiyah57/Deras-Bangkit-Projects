@@ -14,7 +14,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/menu_title_bottom_nav_detection" />
+        app:title="@string/menu_title_bottom_nav_detection"
+        app:titleTextColor="@color/green"/>
 
     <ImageView
         android:id="@+id/detection_image"
