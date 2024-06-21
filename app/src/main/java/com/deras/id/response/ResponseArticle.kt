@@ -3,46 +3,49 @@ package com.deras.id.response
 import com.google.gson.annotations.SerializedName
 
 data class ResponseArticle(
-    @SerializedName("totalResults")
+
+    @field:SerializedName("totalResults")
     val totalResults: Int? = null,
 
-    @SerializedName("articles")
-    val articles: List<Article>? = null,
+    @field:SerializedName("articles")
+    val articles: List<ArticlesItem?>? = null,
 
-    @SerializedName("status")
+    @field:SerializedName("status")
     val status: String? = null
 )
 
-data class Article(
-    @SerializedName("publishedAt")
-    val publishedAt: String? = null,
-
-    @SerializedName("author")
-    val author: String? = null,
-
-    @SerializedName("urlToImage")
-    val urlToImage: String? = null,
-
-    @SerializedName("description")
-    val description: String? = null,
-
-    @SerializedName("source")
-    val source: Source? = null,
-
-    @SerializedName("title")
-    val title: String? = null,
-
-    @SerializedName("url")
-    val url: String? = null,
-
-    @SerializedName("content")
-    val content: String? = null
-)
-
 data class Source(
-    @SerializedName("name")
+
+    @field:SerializedName("name")
     val name: String? = null,
 
-    @SerializedName("id")
+    @field:SerializedName("id")
     val id: Any? = null
+)
+
+data class ArticlesItem(
+
+    @field:SerializedName("publishedAt")
+    val publishedAt: String? = null,
+
+    @field:SerializedName("author")
+    val author: String? = null,
+
+    @field:SerializedName("urlToImage")
+    val urlToImage: String? = null,
+
+    @field:SerializedName("description")
+    val description: String? = null,
+
+    @field:SerializedName("source")
+    val source: Source? = null,
+
+    @field:SerializedName("title")
+    val title: String? = null,
+
+    @field:SerializedName("url")
+    val url: String? = null,
+
+    @field:SerializedName("content")
+    val content: String? = null
 )

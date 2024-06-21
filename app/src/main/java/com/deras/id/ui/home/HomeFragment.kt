@@ -1,60 +1,74 @@
 package com.deras.id.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.deras.id.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.deras.id.databinding.FragmentHomeBinding
+import com.deras.id.ui.article.ArticleAdapter
+import com.deras.id.ui.viewModel.ArticleViewModel
+import com.deras.id.ui.article.ResultState
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var articleViewModel: ArticleViewModel
+    private lateinit var articleAdapter: ArticleAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        articleViewModel = ViewModelProvider(this)[ArticleViewModel::class.java]
+        articleAdapter = ArticleAdapter()
+
+        binding.rvNews.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = articleAdapter
+        }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            articleViewModel.fetchArticles()
+        }
+
+        observeViewModel()
+        articleViewModel.fetchArticles()
+    }
+
+    private fun observeViewModel() {
+        articleViewModel.articles.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is ResultState.Loading -> {
+                    binding.swipeRefresh.isRefreshing = true
+                }
+
+                is ResultState.Success -> {
+                    binding.swipeRefresh.isRefreshing = false
+                    articleAdapter.submitList(result.data)
+                }
+
+                is ResultState.Error -> {
+                    binding.swipeRefresh.isRefreshing = false
+                    // Handle error state, e.g., show an error message
                 }
             }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
